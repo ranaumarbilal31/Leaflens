@@ -22,15 +22,9 @@ import {
   X,
 } from "lucide-react";
 import "./style.css";
+import { predict, type Prediction } from "./prediction";
 
 const REPO = "https://github.com/ranaumarbilal31/leaflens";
-type Prediction = {
-  class_id: number;
-  label: string;
-  plant: string;
-  condition: string;
-  confidence: number;
-};
 type Category = { plant: string; condition: string };
 const samples = [
   { file: "1.png", name: "Sample 1" },
@@ -280,22 +274,9 @@ function Checker() {
     setBusy(true);
     setError("");
     setResult(null);
-    const timeout = window.setTimeout(() => controller.abort(), 60_000);
+    const timeout = window.setTimeout(() => controller.abort(), 120_000);
     try {
-      const data = new FormData();
-      data.append("image", file);
-      const response = await fetch("/api/predict", {
-        method: "POST",
-        body: data,
-        signal: controller.signal,
-      });
-      const payload = await response.json().catch(() => null);
-      if (!response.ok)
-        throw new Error(
-          typeof payload?.detail === "string"
-            ? payload.detail
-            : "The leaf checker is waking up or temporarily unavailable. Please try again shortly.",
-        );
+      const payload = await predict(file, controller.signal);
       if (version.current === selectedVersion) setResult(payload);
     } catch (err) {
       if (version.current === selectedVersion)
@@ -451,7 +432,7 @@ function Checker() {
               <p>
                 Checking your photo for patterns in the leaf.
                 <br />
-                This usually takes a few seconds.
+                The free demo may need a moment to wake up.
               </p>
               <div className="loading-track">
                 <span />
@@ -667,7 +648,7 @@ function About() {
             "02",
             <ScanLine size={23} />,
             "We look for patterns.",
-            "A ResNet9 model processes the image on a CPU. Pixel values are scaled from 0–255 to 0–1, using the same scaling as the 38-class reference notebook. No new training takes place.",
+            "A ResNet9 model processes the image. The hosted demo uses a shared GPU queue; the local version runs on a CPU. Pixel values are scaled from 0–255 to 0–1, using the same scaling as the 38-class reference notebook. No new training takes place.",
           ],
           [
             "03",
@@ -793,13 +774,13 @@ function About() {
             A React and TypeScript interface connects to a FastAPI service
             running PyTorch. The original model weights and category order are
             preserved. The app adds validated uploads, fixed-size preprocessing,
-            accessible interaction states, and CPU inference with bounded
+            accessible interaction states, and inference with bounded
             concurrency.
           </p>
           <p>
-            The demo runs on free hosting that may sleep when unused. Its first
-            start can take longer. Uploaded photos are neither persisted nor
-            used for training.
+            The demo runs on Hugging Face’s free ZeroGPU tier, with a shared
+            queue and daily usage limits. Its first start can take longer.
+            Uploaded photos are neither persisted nor used for training.
           </p>
           <a className="primary" href={REPO} target="_blank" rel="noreferrer">
             <Code2 size={17} /> Explore the source <ArrowUpRight size={16} />

@@ -20,6 +20,9 @@ log = logging.getLogger('leaflens')
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     app.state.predictor = None
+    if getattr(app.state, 'hosted_gpu', False):
+        yield
+        return
     try:
         app.state.predictor = Predictor()
     except Exception:
@@ -46,8 +49,13 @@ class MemoryMultipartParser(MultiPartParser):
 
 @app.get('/api/health')
 def health(request: Request):
-    ready = request.app.state.predictor is not None
+    ready = getattr(request.app.state, 'hosted_gpu', False) or request.app.state.predictor is not None
     return JSONResponse({'status': 'ready' if ready else 'unavailable'}, status_code=200 if ready else 503)
+
+
+@app.get('/api/runtime')
+def runtime(request: Request):
+    return {'mode': 'gradio' if getattr(request.app.state, 'hosted_gpu', False) else 'cpu'}
 
 
 @app.get('/api/categories')
@@ -57,6 +65,8 @@ def categories():
 
 @app.post('/api/predict', response_model=Prediction)
 async def predict(request: Request):
+    if getattr(request.app.state, 'hosted_gpu', False):
+        raise HTTPException(409, 'Use the hosted Gradio check_leaf endpoint so requests enter the free GPU queue.')
     if request.app.state.predictor is None:
         raise HTTPException(503, 'The leaf checker is temporarily unavailable. Please try again shortly.')
     if not request.headers.get('content-type', '').lower().startswith('multipart/form-data'):

@@ -3,14 +3,20 @@ title: LeafLens
 emoji: 🌿
 colorFrom: green
 colorTo: yellow
-sdk: docker
-app_port: 7860
+sdk: gradio
+sdk_version: 6.29.0
+python_version: '3.12'
+app_file: app.py
 pinned: false
 ---
 
 # LeafLens
 
 A leaf-photo checker with a React interface and a FastAPI/PyTorch service.
+
+[Live demo](https://ranaumarbilal31-leaflens.hf.space) · [How it works](https://ranaumarbilal31-leaflens.hf.space/how-it-works)
+
+The hosted demo uses free Hugging Face ZeroGPU, with a shared queue, wake-up delays, and usage quotas. No paid services are configured. The custom interface submits to Gradio's `check_leaf` endpoint at `/inference`; the local CPU version provides `POST /api/predict`. Both provide `/api/health`.
 
 ## Run locally
 
@@ -25,6 +31,8 @@ python -m uvicorn api.main:app --host 127.0.0.1 --port 7860
 ```
 
 Open http://localhost:7860. For Docker, build the provided Dockerfile and publish port 7860.
+
+To test the hosted adapter locally, install `requirements-space.txt` after building the interface and run `python -m space.backend`. It uses CPU locally and the ZeroGPU queue on Spaces. The Space bootstrap retrieves a checksum-verified release bundle containing the built interface, application code, and original checkpoint.
 
 ## Checks
 
