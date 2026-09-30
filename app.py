@@ -9,7 +9,7 @@ from urllib.request import urlopen
 import zipfile
 
 RELEASE = 'https://github.com/ranaumarbilal31/leaflens/releases/download/v1.0.0-demo/leaflens-space.zip'
-SHA256 = 'd7811def236412d276804dd9485012c4e4b6df02cbe0bb5f577c32edc89d7f8d'
+SHA256 = 'fb2e0dfdf44f16fcc97be3887b4fd22ebdac5b0cca9bd10eb80436ab1a80b918'
 
 
 def main():
