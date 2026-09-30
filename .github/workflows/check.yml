@@ -1,0 +1,40 @@
+name: Application checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  container:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build the deployment image
+        run: docker build -t leaflens:check .
+      - name: Test the real model in the deployment environment
+        run: |
+          docker run --rm --user root --entrypoint /bin/sh \
+            -v "$PWD/tests:/app/tests:ro" \
+            -v "$PWD/test images:/app/test images:ro" \
+            leaflens:check -c 'pip install --no-cache-dir pytest==9.1.1 httpx==0.28.1 && python -m pytest tests -q'
+      - name: Verify the running service
+        run: |
+          docker run -d --name leaflens --cpus=2 --memory=2g -p 7860:7860 leaflens:check
+          for attempt in $(seq 1 60); do
+            if curl --fail --silent http://localhost:7860/api/health; then break; fi
+            sleep 2
+          done
+          curl --fail --silent http://localhost:7860/api/health
+          curl --fail --silent http://localhost:7860/how-it-works > /dev/null
+          curl --fail --silent -F 'image=@test images/1.png' http://localhost:7860/api/predict \
+            | python3 -c 'import json,sys; result=json.load(sys.stdin); assert result["class_id"] == 19; print(result)'
+      - name: Container logs on failure
+        if: failure()
+        run: docker logs leaflens || true
