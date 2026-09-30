@@ -1,0 +1,22 @@
+name: Build Space demo bundle
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          ref: v1.0.0-demo
+      - name: Build interface
+        run: |
+          npm ci --prefix web
+          npm run build --prefix web
+      - name: Package application and checkpoint
+        run: python scripts/package_space.py
+      - name: Publish deployment bundle
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload v1.0.0-demo .local/leaflens-space.zip
