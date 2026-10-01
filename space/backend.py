@@ -7,10 +7,10 @@ os.environ['GRADIO_ANALYTICS_ENABLED'] = 'False'
 import spaces
 import base64
 import binascii
+from contextlib import asynccontextmanager
 
 import gradio as gr
 import torch
-import uvicorn
 
 from api.inference import CLASSES, MAX_BYTES, ROOT, InvalidImage, prepare_image
 from api.main import app
@@ -49,12 +49,27 @@ with gr.Blocks(analytics_enabled=False) as demo:
     button.click(check_leaf, inputs=photo, outputs=output, api_name='check_leaf', concurrency_limit=1)
 
 demo.queue(max_size=8, default_concurrency_limit=1)
-app.state.hosted_gpu = True
-app = gr.mount_gradio_app(app, demo, path='/inference', enable_monitoring=False, run_history=False, show_error=True)
+
+
+@asynccontextmanager
+async def hosted_lifespan(application):
+    application.state.hosted_gpu = True
+    yield
 
 
 def main():
-    uvicorn.run(app, host='0.0.0.0', port=int(os.environ.get('PORT', '7860')), workers=1, access_log=False)
+    # Gradio launch runs Spaces' GPU registration and uses its assigned port.
+    # Register our customer-facing routes before Gradio's default homepage.
+    demo.launch(
+        app_kwargs={'routes': app.router.routes, 'lifespan': hosted_lifespan},
+        server_name='0.0.0.0',
+        server_port=int(os.environ.get('GRADIO_SERVER_PORT', '7860')),
+        ssr_mode=False,
+        enable_monitoring=False,
+        run_history=False,
+        show_error=True,
+        share=False,
+    )
 
 
 if __name__ == '__main__':

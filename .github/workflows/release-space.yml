@@ -1,6 +1,11 @@
 name: Build Space demo bundle
 on:
   workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag to package
+        required: true
+        type: string
 permissions:
   contents: write
 jobs:
@@ -9,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.1
         with:
-          ref: v1.0.0-demo
+          ref: ${{ inputs.tag }}
       - name: Build interface
         run: |
           npm ci --prefix web
@@ -19,4 +24,5 @@ jobs:
       - name: Publish deployment bundle
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release upload v1.0.0-demo .local/leaflens-space.zip
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: gh release upload "$RELEASE_TAG" .local/leaflens-space.zip

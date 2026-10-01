@@ -16,7 +16,7 @@ A leaf-photo checker with a React interface and a FastAPI/PyTorch service.
 
 [Live demo](https://ranaumarbilal31-leaflens.hf.space) · [How it works](https://ranaumarbilal31-leaflens.hf.space/how-it-works)
 
-The hosted demo uses free Hugging Face ZeroGPU, with a shared queue, wake-up delays, and usage quotas. No paid services are configured. The custom interface submits to Gradio's `check_leaf` endpoint at `/inference`; the local CPU version provides `POST /api/predict`. Both provide `/api/health`.
+The hosted demo uses free Hugging Face ZeroGPU, with a shared queue, wake-up delays, and usage quotas. No paid services are configured. The custom interface submits to Gradio's `check_leaf` endpoint on the same origin; the local CPU version provides `POST /api/predict`. Both provide `/api/health`.
 
 ## Run locally
 

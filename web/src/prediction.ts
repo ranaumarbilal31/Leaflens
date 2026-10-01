@@ -40,7 +40,7 @@ export async function predict(
     const { Client } = await import("@gradio/client");
     const photo = await toBase64(file);
     const client = await Client.connect(
-      new URL("/inference/", window.location.origin).href,
+      window.location.origin,
       { events: ["data", "status"] },
     );
     signal.throwIfAborted();
