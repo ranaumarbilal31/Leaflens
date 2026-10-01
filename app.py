@@ -8,8 +8,8 @@ import tempfile
 from urllib.request import urlopen
 import zipfile
 
-RELEASE = 'https://github.com/ranaumarbilal31/leaflens/releases/download/v1.0.0-demo.3/leaflens-space.zip'
-SHA256 = 'fc3bb8ee2848e879ae9b7687623ac48283269b68cc9822fc6a5bb09c4d9a3dc0'
+RELEASE = 'https://github.com/ranaumarbilal31/leaflens/releases/download/v1.0.0-demo.4/leaflens-space.zip'
+SHA256 = 'd289215e28337f70f128c721b8c2005044ccbf2d53949237cef435e69bef332b'
 
 
 def main():
