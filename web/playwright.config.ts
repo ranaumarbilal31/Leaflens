@@ -5,6 +5,10 @@ export default defineConfig({
   fullyParallel: false,
   workers: 1,
   reporter: "list",
+  expect: {
+    timeout: process.env.LEAFLENS_URL?.startsWith("https:") ? 90_000 : 5_000,
+  },
+  timeout: process.env.LEAFLENS_URL?.startsWith("https:") ? 180_000 : 30_000,
   use: {
     baseURL: process.env.LEAFLENS_URL || "http://127.0.0.1:7860",
     trace: "retain-on-failure",

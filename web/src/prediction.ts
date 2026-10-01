@@ -39,10 +39,9 @@ export async function predict(
   if (configuration.mode === "gradio") {
     const { Client } = await import("@gradio/client");
     const photo = await toBase64(file);
-    const client = await Client.connect(
-      window.location.origin,
-      { events: ["data", "status"] },
-    );
+    const client = await Client.connect(window.location.origin, {
+      events: ["data", "status"],
+    });
     signal.throwIfAborted();
     const job = client.submit("/check_leaf", [photo]);
     const cancel = () => {
