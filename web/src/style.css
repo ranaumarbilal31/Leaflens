@@ -1,15 +1,15 @@
 :root {
   font-family: "DM Sans Variable", sans-serif;
-  color: #6e3511;
+  color: #161616;
   background: #fcecd8;
   font-synthesis: none;
   font-weight: 400;
   font-size: 15px;
   line-height: 1.6;
   --green: #597928;
-  --ink: #6e3511;
-  --muted: #6e3511;
-  --line: #6e351126;
+  --ink: #161616;
+  --muted: #161616;
+  --line: #16161626;
   --cream: #fcecd8;
 }
 * {
@@ -95,7 +95,7 @@ html {
   line-height: 1;
 }
 .brand-period {
-  color: #597928;
+  color: var(--ink);
   margin-left: -8px;
 }
 .brand-mark {
@@ -124,7 +124,7 @@ html {
   gap: 7px;
 }
 .site-header nav > a:hover {
-  color: #597928;
+  color: var(--ink);
 }
 .nav-active:after {
   content: "";
@@ -150,7 +150,7 @@ html {
   display: flex;
   align-items: center;
   gap: 9px;
-  color: #6e3511;
+  color: #161616;
 }
 .hero {
   display: grid;
@@ -182,7 +182,7 @@ html {
 .about h1 em {
   font-family: Georgia, serif;
   font-weight: 400;
-  color: #597928;
+  color: var(--ink);
 }
 .hero-copy > p {
   color: var(--muted);
@@ -216,7 +216,7 @@ html {
 }
 .hero-footnote {
   display: block;
-  color: #6e3511;
+  color: #161616;
   font-size: 10px;
   margin-top: 10px;
 }
@@ -261,7 +261,7 @@ html {
   top: 21px;
   font-size: 10px;
   letter-spacing: 1px;
-  color: #6e3511;
+  color: #161616;
   writing-mode: vertical-rl;
 }
 .leaf-note {
@@ -276,21 +276,21 @@ html {
   background: #fffffff2;
   border: 1px solid #fcecd8;
   border-radius: 9px;
-  box-shadow: 0 7px 26px #6e351109;
+  box-shadow: 0 7px 26px #16161609;
   font-size: 11px;
   font-weight: 600;
   transform: rotate(-3deg);
 }
 .note-icon {
   background: #fcecd8;
-  color: #597928;
+  color: var(--ink);
   border-radius: 50%;
   padding: 8px;
 }
 .leaf-note small {
   display: block;
   font-size: 10px;
-  color: #6e3511;
+  color: #161616;
   margin-top: 2px;
   font-weight: 400;
 }
@@ -300,7 +300,7 @@ html {
   right: 18px;
   font-size: 10px;
   letter-spacing: 2px;
-  color: #6e3511;
+  color: #161616;
 }
 .benefit-strip {
   display: flex;
@@ -309,7 +309,7 @@ html {
   padding: 20px 0;
   border-block: 1px solid var(--line);
   font-size: 11px;
-  color: #6e3511;
+  color: #161616;
 }
 .benefit-strip > span {
   display: flex;
@@ -318,11 +318,11 @@ html {
 }
 .benefit-strip strong {
   font-weight: 650;
-  color: #6e3511;
+  color: #161616;
   margin-right: -4px;
 }
 .benefit-strip svg {
-  color: #597928;
+  color: var(--ink);
 }
 .benefit-strip > a {
   margin-left: auto;
@@ -354,7 +354,7 @@ html {
   display: flex;
   align-items: center;
   gap: 7px;
-  color: #6e3511;
+  color: #161616;
   font-size: 10px;
   padding-bottom: 3px;
 }
@@ -387,7 +387,7 @@ html {
 }
 .step-index {
   font-size: 10px;
-  color: #6e3511;
+  color: #161616;
   border: 1px solid #fcecd8;
   border-radius: 50%;
   width: 25px;
@@ -399,7 +399,7 @@ html {
   margin-left: auto;
   font-size: 10px;
   letter-spacing: 1px;
-  color: #6e3511;
+  color: #161616;
   background: #fcecd8;
   border: 1px solid #fcecd8;
   padding: 3px 6px;
@@ -427,7 +427,7 @@ html {
 .drop-zone:hover,
 .drop-zone.is-dragging {
   background: #fcecd8;
-  border-color: #597928;
+  border-color: var(--ink);
 }
 .upload-icon {
   position: relative;
@@ -438,7 +438,7 @@ html {
   border: 1px solid #fcecd8;
   display: grid;
   place-items: center;
-  color: #597928;
+  color: var(--ink);
   margin-bottom: 15px;
 }
 .upload-icon > span {
@@ -461,18 +461,18 @@ html {
 }
 .drop-zone > span:not(.upload-icon) {
   font-size: 11px;
-  color: #6e3511;
+  color: #161616;
   margin-top: 4px;
 }
 .drop-zone b {
   font-weight: 550;
   text-decoration: underline;
   text-underline-offset: 3px;
-  color: #597928;
+  color: var(--ink);
 }
 .drop-zone small {
   font-size: 10px;
-  color: #6e3511;
+  color: #161616;
   margin-top: 17px;
 }
 .samples {
@@ -484,7 +484,7 @@ html {
 }
 .samples > span {
   font-size: 10px;
-  color: #6e3511;
+  color: #161616;
   max-width: 100px;
   line-height: 1.6;
 }
@@ -504,7 +504,7 @@ html {
   text-align: left;
 }
 .sample-buttons button:hover {
-  border-color: #597928;
+  border-color: var(--ink);
   background: #fcecd8;
 }
 .sample-buttons img {
@@ -530,7 +530,7 @@ html {
 }
 .check-button:disabled {
   background: #fcecd8;
-  color: #597928;
+  color: var(--ink);
 }
 .check-button:disabled:hover {
   transform: none;
@@ -562,7 +562,7 @@ html {
   height: 30px;
   border: 1px solid var(--line);
   border-radius: 50%;
-  box-shadow: 0 2px 8px #6e351112;
+  box-shadow: 0 2px 8px #16161612;
 }
 .remove-photo:hover {
   background: #fcecd8;
@@ -579,14 +579,14 @@ html {
   padding: 3px 8px;
   border-radius: 4px;
   background: #fffffff0;
-  color: #6e3511;
+  color: #161616;
 }
 .error-message {
   display: flex;
   gap: 8px;
   align-items: flex-start;
   font-size: 12px;
-  color: #6e3511;
+  color: #161616;
   background: #fcecd8;
   border: 1px solid #91ac6740;
   border-radius: 7px;
@@ -605,7 +605,7 @@ html {
 .status-dot {
   margin-left: auto;
   font-size: 10px;
-  color: #6e3511;
+  color: #161616;
   display: flex;
   align-items: center;
   gap: 5px;
@@ -631,7 +631,7 @@ html {
   padding: 25px 0 27px;
 }
 .empty-symbol {
-  color: #597928;
+  color: var(--ink);
   width: 78px;
   height: 78px;
   border: 1px solid #fcecd8;
@@ -640,24 +640,24 @@ html {
   display: grid;
   place-items: center;
   margin-bottom: 18px;
-  box-shadow: 0 0 0 9px #6e351155;
+  box-shadow: 0 0 0 9px #16161655;
 }
 .result-empty h3 {
   font-size: 24px;
   font-weight: 500;
   letter-spacing: -0.8px;
   line-height: 1.3;
-  color: #597928;
+  color: var(--ink);
 }
 .result-empty p {
   font-size: 11px;
-  color: #6e3511;
+  color: #161616;
   line-height: 1.85;
   margin-top: 13px;
 }
 .empty-hint {
   font-size: 10px;
-  color: #6e3511;
+  color: #161616;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -676,7 +676,7 @@ html {
   justify-content: center;
   gap: 7px;
   font-size: 10px;
-  color: #6e3511;
+  color: #161616;
   padding: 15px 0;
   margin-top: auto;
 }
@@ -687,7 +687,7 @@ html {
   gap: 16px;
   margin-top: 19px;
   font-size: 10px;
-  color: #6e3511;
+  color: #161616;
 }
 .photo-tips > span {
   display: flex;
@@ -695,7 +695,7 @@ html {
   gap: 6px;
 }
 .photo-tips .tips-label {
-  color: #6e3511;
+  color: #161616;
   font-weight: 500;
   gap: 9px;
 }
@@ -714,7 +714,7 @@ html {
 .note-number {
   font-size: 10px;
   letter-spacing: 1.5px;
-  color: #6e3511;
+  color: #161616;
   padding-top: 7px;
 }
 .garden-note > div {
@@ -728,7 +728,7 @@ html {
 }
 .garden-note p {
   font-size: 12px;
-  color: #6e3511;
+  color: #161616;
   line-height: 1.9;
   margin: 17px 0;
 }
@@ -739,7 +739,7 @@ html {
   background: none;
   border: 0;
   padding: 0;
-  color: #597928;
+  color: var(--ink);
   font-size: 12px;
   font-weight: 550;
 }
@@ -776,14 +776,14 @@ html {
 }
 .site-footer > span {
   font-size: 10px;
-  color: #6e3511;
+  color: #161616;
 }
 .site-footer > div {
   margin-left: auto;
   display: flex;
   gap: 25px;
   font-size: 10px;
-  color: #6e3511;
+  color: #161616;
 }
 .site-footer > div a {
   display: flex;
@@ -799,7 +799,7 @@ html {
   display: flex;
   align-items: center;
   gap: 7px;
-  color: #6e3511;
+  color: #161616;
 }
 .result-plant {
   font-size: 32px;
@@ -816,7 +816,7 @@ html {
   align-items: center;
   margin-top: 13px;
   font-size: 12px;
-  color: #6e3511;
+  color: #161616;
   background: #fcecd8;
   border: 1px solid #91ac6740;
   border-radius: 5px;
@@ -824,7 +824,7 @@ html {
 }
 .condition.healthy {
   background: #fcecd8;
-  color: #597928;
+  color: var(--ink);
   border-color: #91ac6740;
 }
 .confidence {
@@ -835,12 +835,12 @@ html {
   align-items: center;
   justify-content: space-between;
   font-size: 11px;
-  color: #6e3511;
+  color: #161616;
 }
 .confidence strong {
   font-size: 21px;
   font-weight: 500;
-  color: #597928;
+  color: var(--ink);
 }
 .confidence small {
   font-size: 12px;
@@ -871,7 +871,7 @@ html {
 .confidence p {
   font-size: 10px;
   line-height: 1.7;
-  color: #6e3511;
+  color: #161616;
   margin-top: 9px;
 }
 .result-note {
@@ -880,17 +880,17 @@ html {
   margin-top: 20px;
   padding-top: 18px;
   border-top: 1px solid #fcecd8;
-  color: #597928;
+  color: var(--ink);
 }
 .result-note strong {
   font-size: 11px;
-  color: #6e3511;
+  color: #161616;
   font-weight: 600;
 }
 .result-note p {
   font-size: 10px;
   line-height: 1.8;
-  color: #6e3511;
+  color: #161616;
   margin-top: 4px;
 }
 .result-content > .text-button {
@@ -942,7 +942,7 @@ html {
 }
 .back-link {
   font-size: 11px;
-  color: #6e3511;
+  color: #161616;
 }
 .about-hero {
   padding: 45px 0 40px;
@@ -975,11 +975,11 @@ html {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #6e3511;
+  color: #161616;
 }
 .process-top span {
   font-size: 11px;
-  color: #6e3511;
+  color: #161616;
 }
 .process-grid h2 {
   font-size: 20px;
@@ -990,7 +990,7 @@ html {
 .process-grid p {
   font-size: 12px;
   line-height: 1.9;
-  color: #6e3511;
+  color: #161616;
 }
 .about-section {
   display: grid;
@@ -1007,7 +1007,7 @@ html {
 }
 .about-section > div > p {
   font-size: 13px;
-  color: #6e3511;
+  color: #161616;
   line-height: 1.95;
   margin-top: 18px;
 }
@@ -1035,7 +1035,7 @@ html {
 }
 .category-list summary > span {
   font-size: 10px;
-  color: #6e3511;
+  color: #161616;
   display: flex;
   gap: 9px;
   align-items: center;
@@ -1046,7 +1046,7 @@ html {
 .category-list ul {
   padding-left: 16px;
   font-size: 11px;
-  color: #6e3511;
+  color: #161616;
   line-height: 1.8;
 }
 .limitations {
@@ -1058,12 +1058,12 @@ html {
   align-items: flex-start;
   gap: 23px;
   margin-top: 45px;
-  color: #6e3511;
+  color: #161616;
 }
 .limitations h2 {
   font-size: 23px;
   font-weight: 500;
-  color: #597928;
+  color: var(--ink);
   margin-bottom: 14px;
 }
 .limitations p {
@@ -1087,7 +1087,7 @@ html {
 .provenance p a {
   text-decoration: underline;
   text-underline-offset: 3px;
-  color: #597928;
+  color: var(--ink);
 }
 .provenance .primary {
   margin-top: 25px;
@@ -1099,7 +1099,7 @@ html {
 }
 @keyframes breathe {
   50% {
-    box-shadow: 0 0 0 18px #6e351144;
+    box-shadow: 0 0 0 18px #16161644;
   }
 }
 @keyframes loading {
@@ -1636,7 +1636,7 @@ html {
     font-size: 12px;
   }
 }
-/* Warm garden palette and quiet, on-demand details. */
+/* Cream surfaces, neutral text, and quiet, on-demand details. */
 .drop-zone b,
 .condition,
 .condition.healthy,
@@ -1674,7 +1674,7 @@ body {
 .garden-note h2 em {
   font-family: inherit;
   font-style: normal;
-  color: var(--green);
+  color: var(--ink);
 }
 .about h1 {
   font-size: clamp(58px, 7vw, 86px);
@@ -1686,6 +1686,10 @@ body {
 .garden-note h2,
 .about-section h2 {
   font-size: 44px;
+}
+.garden-note h2,
+.provenance > div > h2 {
+  color: #6e3511;
 }
 .botanical {
   background: radial-gradient(ellipse, #91ac672e, transparent 70%);
@@ -1724,10 +1728,10 @@ body {
   opacity: 0.28;
 }
 .primary {
-  box-shadow: 0 4px 12px #6e351109;
+  box-shadow: 0 4px 12px #16161609;
 }
 .primary:hover {
-  background: #6e3511;
+  background: #161616;
 }
 .drop-zone:hover,
 .drop-zone.is-dragging {
@@ -1760,7 +1764,7 @@ body {
   transform: rotate(180deg);
 }
 .coverage-toggle:hover {
-  color: var(--green);
+  color: var(--ink);
 }
 .coverage-content {
   padding: 25px 0 30px;
@@ -1804,7 +1808,7 @@ body {
   gap: 9px;
 }
 .plant-grid svg {
-  color: var(--green);
+  color: var(--ink);
 }
 .coverage-categories {
   display: grid;

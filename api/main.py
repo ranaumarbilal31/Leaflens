@@ -119,6 +119,25 @@ if WEB.exists():
         return FileResponse(WEB / 'favicon.svg')
 
     @app.get('/', include_in_schema=False)
-    @app.get('/how-it-works', include_in_schema=False)
     def interface():
         return FileResponse(WEB / 'index.html')
+
+    @app.get('/how-it-works', include_in_schema=False)
+    def explanation():
+        return FileResponse(WEB / 'how-it-works/index.html')
+
+    @app.get('/robots.txt', include_in_schema=False)
+    def robots():
+        return FileResponse(WEB / 'robots.txt', media_type='text/plain')
+
+    @app.get('/sitemap.xml', include_in_schema=False)
+    def sitemap():
+        return FileResponse(WEB / 'sitemap.xml', media_type='application/xml')
+
+    @app.get('/llms.txt', include_in_schema=False)
+    def agent_reading_guide():
+        return FileResponse(WEB / 'llms.txt', media_type='text/plain')
+
+    @app.get('/social-preview.png', include_in_schema=False)
+    def social_preview():
+        return FileResponse(WEB / 'social-preview.png', media_type='image/png')

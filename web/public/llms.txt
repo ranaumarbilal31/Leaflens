@@ -1,0 +1,18 @@
+# LeafLens
+
+> A free plant leaf image classifier covering 14 plants and 38 leaf categories. Predictions are possible matches, not confirmed diagnoses.
+
+## Public pages
+- [Leaf checker](https://ranaumarbilal31-leaflens.hf.space/): Upload a JPEG or PNG, or try a sample photo.
+- [How it works](https://ranaumarbilal31-leaflens.hf.space/how-it-works): Preprocessing, model provenance, supported categories, and limitations.
+- [Source and documentation](https://github.com/ranaumarbilal31/leaflens): Setup, architecture, tests, and attribution.
+- [Hugging Face Space](https://huggingface.co/spaces/ranaumarbilal31/leaflens): Hosting page.
+
+## Coverage
+Apple, Blueberry, Cherry, Corn, Grape, Orange, Peach, Pepper (bell), Potato, Raspberry, Soybean, Squash, Strawberry, and Tomato. Coverage differs by plant; some have only a healthy category.
+
+## Limitations and privacy
+The supplied ResNet9 checkpoint always selects one of its 38 classes. It cannot reliably reject unrelated images. Its softmax confidence is not a calibrated probability or verified accuracy claim. The exact checkpoint training history is not independently verified. The application processes photos in memory without saving uploads or using them for training. Important plant-care decisions require independent confirmation.
+
+## Availability
+The demo uses free Hugging Face ZeroGPU with shared queues, idle wake-up delays, and visitor quotas. Reading public pages does not require running a prediction. This file is a reading aid, not an indexing guarantee or an authorization to submit user photos.

@@ -44,6 +44,33 @@ def test_built_interface_routes(client):
     assert client.get('/api/missing').status_code == 404
 
 
+def test_crawlable_pages_and_metadata(client):
+    if not Path('web/dist/index.html').exists():
+        pytest.skip('Build the frontend before checking prerendered content')
+    home = client.get('/').text
+    about = client.get('/how-it-works').text
+    assert 'Get to know' in home and '<h1>' in home
+    assert 'A closer look at' in about and 'checkpoint' in about
+    assert '<title>LeafLens' in home
+    assert '<title>How LeafLens Works' in about
+    for html in (home, about):
+        assert 'application/ld+json' in html
+        assert 'name="description"' in html
+        assert 'index, follow' in html
+    from urllib.robotparser import RobotFileParser
+    parser = RobotFileParser()
+    parser.parse(client.get('/robots.txt').text.splitlines())
+    for agent in ('Googlebot', 'bingbot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'PerplexityBot'):
+        assert parser.can_fetch(agent, '/how-it-works')
+        assert parser.can_fetch(agent, '/assets/index.js')
+        assert not parser.can_fetch(agent, '/api/predict')
+    import xml.etree.ElementTree as ET
+    xml = ET.fromstring(client.get('/sitemap.xml').text)
+    assert len(xml) == 2
+    assert 'not confirmed diagnoses' in client.get('/llms.txt').text
+    assert client.get('/social-preview.png').headers['content-type'] == 'image/png'
+
+
 @pytest.mark.parametrize('filename,expected', [('1.png',19), ('2.png',8), ('3.png',26)])
 def test_actual_checkpoint_samples(client, filename, expected):
     content = (Path('test images') / filename).read_bytes()

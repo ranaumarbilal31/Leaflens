@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /api/
+Disallow: /gradio_api/
+Disallow: /config
+
+Sitemap: https://ranaumarbilal31-leaflens.hf.space/sitemap.xml

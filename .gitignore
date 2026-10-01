@@ -8,6 +8,7 @@ __pycache__/
 !.env.example
 node_modules/
 web/dist/
+web/.ssr/
 test-results/
 playwright-report/
 .local/
@@ -16,3 +17,4 @@ Dashboard*.jpeg
 frontend.py
 notebooks/
 .DS_Store
+*.log
