@@ -156,6 +156,7 @@ test("a newer selection never shows an old response", async ({ page }) => {
   await page.getByRole("button", { name: "Try sample 1" }).click();
   await page.getByRole("button", { name: "Check my leaf" }).click();
   await expect(page.getByText("Taking a closer look.")).toBeVisible();
+  await expect(page.locator(".result-skeleton .skeleton")).toHaveCount(4);
   await page.getByRole("button", { name: "Try sample 2" }).click();
   release();
   await expect(
@@ -165,6 +166,48 @@ test("a newer selection never shows an old response", async ({ page }) => {
     page.getByRole("heading", { name: "Pepper, bell", exact: true }),
   ).toHaveCount(0);
   await expect(page.getByText("Sample 2.png", { exact: true })).toBeVisible();
+  await expect(page.locator(".result-skeleton")).toHaveCount(0);
+});
+
+test("minimal coverage lists open by keyboard and show model categories", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await expect(page.locator("#coverage-list")).toBeHidden();
+  const plants = page.getByRole("button", { name: "14 supported plants" });
+  await plants.focus();
+  await page.keyboard.press("Enter");
+  await expect(plants).toHaveAttribute("aria-expanded", "true");
+  await expect(page.locator(".plant-grid li")).toHaveCount(14);
+  await page.getByRole("button", { name: "38 leaf categories" }).click();
+  await expect(plants).toHaveAttribute("aria-expanded", "false");
+  await expect(page.locator(".coverage-categories li")).toHaveCount(38);
+  await expect(page.locator(".coverage-categories")).toContainText(
+    "Apple scab",
+  );
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBeTruthy();
+  const audit = await new AxeBuilder({ page })
+    .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+    .analyze();
+  expect(audit.violations).toEqual([]);
+  await page.getByRole("button", { name: "Close list" }).click();
+  await expect(page.locator("#coverage-list")).toBeHidden();
+});
+
+test("coverage list recovers from a failed load", async ({ page }) => {
+  await page.route("**/api/categories", (route) =>
+    route.fulfill({ status: 503, body: "unavailable" }),
+  );
+  await page.goto("/");
+  await page.getByRole("button", { name: "14 supported plants" }).click();
+  await expect(page.getByRole("alert")).toContainText("couldn’t load");
+  await page.unroute("**/api/categories");
+  await page.getByRole("button", { name: "Try again", exact: true }).click();
+  await expect(page.locator(".plant-grid li")).toHaveCount(14);
 });
 
 test("accessible home and explanation", async ({ page }) => {

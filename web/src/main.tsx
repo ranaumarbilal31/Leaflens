@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "@fontsource-variable/dm-sans";
 import "@fontsource-variable/manrope";
+import "@fontsource/bebas-neue/latin-400.css";
 import { createRoot } from "react-dom/client";
 import {
   ArrowDown,
@@ -8,6 +9,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   Check,
+  ChevronDown,
   CircleAlert,
   Code2,
   ImagePlus,
@@ -94,9 +96,9 @@ function Botanical() {
             y2="29"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stopColor="#1c4736" />
-            <stop offset=".5" stopColor="#588452" />
-            <stop offset="1" stopColor="#b3be70" />
+            <stop stopColor="#597928" />
+            <stop offset=".5" stopColor="#91ac67" />
+            <stop offset="1" stopColor="#fcecd8" />
           </linearGradient>
           <linearGradient
             id="leaf-two"
@@ -106,8 +108,8 @@ function Botanical() {
             y2="188"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stopColor="#234c38" />
-            <stop offset="1" stopColor="#8faa68" />
+            <stop stopColor="#6e3511" />
+            <stop offset="1" stopColor="#91ac67" />
           </linearGradient>
           <linearGradient
             id="leaf-three"
@@ -117,15 +119,15 @@ function Botanical() {
             y2="162"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stopColor="#35563c" />
-            <stop offset="1" stopColor="#9aad72" />
+            <stop stopColor="#597928" />
+            <stop offset="1" stopColor="#91ac67" />
           </linearGradient>
           <filter id="shadow">
             <feDropShadow
               dx="8"
               dy="14"
               stdDeviation="10"
-              floodColor="#233e29"
+              floodColor="#6e3511"
               floodOpacity=".13"
             />
           </filter>
@@ -135,13 +137,13 @@ function Botanical() {
           cy="362"
           rx="99"
           ry="11"
-          fill="#3c6233"
+          fill="#597928"
           opacity=".08"
         />
         <g filter="url(#shadow)">
           <path
             d="M220 362C234 291 260 204 322 84"
-            stroke="#536d3d"
+            stroke="#6e3511"
             strokeWidth="5"
             strokeLinecap="round"
           />
@@ -151,13 +153,13 @@ function Botanical() {
           />
           <path
             d="M234 295C254 224 296 128 350 41"
-            stroke="#c5cf91"
+            stroke="#fcecd8"
             strokeOpacity=".7"
             strokeWidth="2"
           />
           <path
             d="M248 253 201 211M260 223 193 174M274 193 211 139M291 157 248 106M309 121 287 89M248 251 302 245M262 222 334 203M277 189 353 157M294 153 361 112M311 119 360 80"
-            stroke="#cbd49b"
+            stroke="#fcecd8"
             strokeOpacity=".35"
             strokeWidth="1.25"
           />
@@ -167,7 +169,7 @@ function Botanical() {
           />
           <path
             d="M226 331C294 307 350 276 404 219M275 310 281 279M305 295 324 260M340 274 366 237M277 310 313 330M310 291 349 310M345 269 376 283"
-            stroke="#c1d29b"
+            stroke="#fcecd8"
             strokeOpacity=".45"
             strokeWidth="1.4"
           />
@@ -177,19 +179,19 @@ function Botanical() {
           />
           <path
             d="M227 343C183 296 135 253 97 202M192 307 197 270M164 279 163 249M137 251 134 224M192 307 152 309M162 278 123 277M136 251 109 242"
-            stroke="#cad2a2"
+            stroke="#fcecd8"
             strokeOpacity=".4"
             strokeWidth="1.4"
           />
         </g>
         <path
           d="M156 114h-18v18M367 114h18v18M138 272v18h18M385 272v18h-18"
-          stroke="#698568"
+          stroke="#597928"
           strokeWidth="1.5"
           opacity=".7"
         />
-        <circle cx="291" cy="180" r="5" fill="#edf1d9" />
-        <circle cx="291" cy="180" r="13" stroke="#edf1d9" strokeOpacity=".6" />
+        <circle cx="291" cy="180" r="5" fill="#fcecd8" />
+        <circle cx="291" cy="180" r="13" stroke="#fcecd8" strokeOpacity=".6" />
       </svg>
       <div className="leaf-note">
         <span className="note-icon">
@@ -199,7 +201,6 @@ function Botanical() {
           Every leaf tells a story.<small>Let’s take a closer look.</small>
         </span>
       </div>
-      <span className="art-index">01 / OBSERVE & UNDERSTAND</span>
     </div>
   );
 }
@@ -301,7 +302,6 @@ function Checker() {
     >
       <div className="section-intro">
         <div>
-          <span className="eyebrow">YOUR GARDEN, A LITTLE CLEARER</span>
           <h2 id="checker-heading">Start with a single leaf.</h2>
         </div>
         <span className="section-aside">
@@ -425,18 +425,18 @@ function Checker() {
           </div>
           {busy ? (
             <div className="result-empty" role="status">
-              <span className="empty-symbol loading-symbol">
-                <ScanLine size={37} strokeWidth={1} />
-              </span>
+              <div className="result-skeleton" aria-hidden="true">
+                <span className="skeleton skeleton-title" />
+                <span className="skeleton skeleton-pill" />
+                <span className="skeleton skeleton-meter" />
+                <span className="skeleton skeleton-line" />
+              </div>
               <h3>Taking a closer look.</h3>
               <p>
                 Checking your photo for patterns in the leaf.
                 <br />
                 The free demo may need a moment to wake up.
               </p>
-              <div className="loading-track">
-                <span />
-              </div>
             </div>
           ) : result ? (
             <div className="result-content">
@@ -539,14 +539,128 @@ function Checker() {
   );
 }
 
+function Coverage() {
+  const [open, setOpen] = useState<"plants" | "categories" | null>(null);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [failed, setFailed] = useState(false);
+  const [retry, setRetry] = useState(0);
+  useEffect(() => {
+    if (!open || categories.length) return;
+    const controller = new AbortController();
+    setFailed(false);
+    fetch("/api/categories", { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error();
+        return response.json();
+      })
+      .then(setCategories)
+      .catch(() => {
+        if (!controller.signal.aborted) setFailed(true);
+      });
+    return () => controller.abort();
+  }, [open, categories.length, retry]);
+  const plants = [...new Set(categories.map(({ plant }) => plant))];
+  return (
+    <div className="coverage wrap">
+      <div className="benefit-strip">
+        <button
+          className="coverage-toggle"
+          aria-expanded={open === "plants"}
+          aria-controls="coverage-list"
+          onClick={() => setOpen(open === "plants" ? null : "plants")}
+        >
+          <Sprout size={18} />
+          <span>
+            <strong>14</strong> supported plants
+          </span>
+          <ChevronDown size={13} />
+        </button>
+        <button
+          className="coverage-toggle"
+          aria-expanded={open === "categories"}
+          aria-controls="coverage-list"
+          onClick={() => setOpen(open === "categories" ? null : "categories")}
+        >
+          <ScanLine size={18} />
+          <span>
+            <strong>38</strong> leaf categories
+          </span>
+          <ChevronDown size={13} />
+        </button>
+        <span>
+          <LockKeyhole size={17} />
+          Private by design
+        </span>
+        <a href="/how-it-works">
+          Get to know LeafLens <ArrowUpRight size={15} />
+        </a>
+      </div>
+      <section
+        id="coverage-list"
+        className="coverage-content"
+        hidden={!open}
+        aria-labelledby="coverage-title"
+      >
+        <div className="coverage-heading">
+          <h2 id="coverage-title">
+            {open === "plants" ? "Supported plants" : "Leaf categories"}
+          </h2>
+          <button aria-label="Close list" onClick={() => setOpen(null)}>
+            <X size={17} />
+          </button>
+        </div>
+        {failed ? (
+          <div role="alert">
+            The list couldn’t load.{" "}
+            <button className="text-button" onClick={() => setRetry(retry + 1)}>
+              Try again
+            </button>
+          </div>
+        ) : !categories.length ? (
+          <div
+            role="status"
+            aria-label="Loading supported plants"
+            className="coverage-skeleton"
+          >
+            {Array.from({ length: 8 }, (_, i) => (
+              <span key={i} className="skeleton" aria-hidden="true" />
+            ))}
+          </div>
+        ) : open === "plants" ? (
+          <ul className="plant-grid">
+            {plants.map((plant) => (
+              <li key={plant}>
+                <Leaf size={14} />
+                {plant}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className="coverage-categories">
+            {plants.map((plant) => (
+              <div key={plant}>
+                <h3>{plant}</h3>
+                <ul>
+                  {categories
+                    .filter((category) => category.plant === plant)
+                    .map((category) => (
+                      <li key={category.condition}>{category.condition}</li>
+                    ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+    </div>
+  );
+}
+
 function Home() {
   return (
     <>
       <section className="hero wrap">
         <div className="hero-copy">
-          <span className="eyebrow">
-            <span className="tiny-leaf" /> A LITTLE CARE GOES A LONG WAY
-          </span>
           <h1>
             Get to know
             <br />
@@ -564,23 +678,7 @@ function Home() {
         </div>
         <Botanical />
       </section>
-      <div className="benefit-strip wrap">
-        <span>
-          <Sprout size={18} />
-          <strong>14</strong> supported plants
-        </span>
-        <span>
-          <ScanLine size={18} />
-          <strong>38</strong> leaf categories
-        </span>
-        <span>
-          <LockKeyhole size={17} />
-          Private by design
-        </span>
-        <a href="/how-it-works">
-          Get to know LeafLens <ArrowUpRight size={15} />
-        </a>
-      </div>
+      <Coverage />
       <Checker />
       <section className="garden-note wrap">
         <span className="note-number">A NOTE FROM LEAFLENS</span>
