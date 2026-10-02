@@ -13,6 +13,8 @@ Hugging Face injects a canonical `Link` response header pointing to `https://hug
 
 ## Indexing status
 
+On October 2, 2026, the live URL-prefix property was verified in Google Search Console using the public HTML verification tag. Google accepted indexing requests for both the homepage and explanation page into its priority crawl queue. The sitemap was submitted, but Google's initial fetch reported "Sitemap could not be read" despite the public endpoint returning HTTP 200 with valid XML. Submission is not proof of indexing; the property initially reported the pages as unknown to Google.
+
 Publishing crawlable pages does not confirm inclusion in any search index. No search-engine indexing or ranking is guaranteed. Google says crawling can take days to weeks, and requesting a crawl does not guarantee inclusion: [requesting recrawls](https://developers.google.com/search/docs/crawling-indexing/ask-google-to-recrawl).
 
 For owner-managed submission, sign into Google Search Console, add the exact `https://ranaumarbilal31-leaflens.hf.space/` URL-prefix property, complete ownership verification, and submit `sitemap.xml`. Inspect the reported canonical before requesting indexing. Bing Webmaster Tools offers its own ownership and submission flow. These account steps are separate from the deployed website configuration; do not claim they are complete unless verified.
